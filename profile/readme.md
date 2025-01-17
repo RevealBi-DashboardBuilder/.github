@@ -69,33 +69,8 @@ Below is a high-level walkthrough of what `BuilderComponent` does, referencing k
    The “Clear / Reset” menu item helps you wipe the combined dashboard clean, leaving you free to start building a new one.
 
 ## Getting Started
-
-1. **Install Dependencies**  
-   ```bash
-   npm install
-   ```
-
-2. **Serve Locally**  
-   ```bash
-   ng serve
-   ```
-   Then navigate to `http://localhost:4200` (or whatever your Angular dev server is configured to use).
-
-3. **Configure Environments**  
-   - Make sure `environment.ts` contains the necessary properties:
-     ```ts
-     export const environment = {
-       BASE_URL: '...',
-       IMAGE_URL: '...',
-       // ...
-     };
-     ```
-
-4. **Reveal Server Connection**  
-   - Ensure your backend or the Reveal server is accessible at the URLs your application expects.
+Each repository has a readme for getting started on both the client and the server.
 
 ## Requirements
 
-- Angular `^15.x` (or whichever version you are using)
-- [Reveal SDK](https://www.infragistics.com/products/reveal)
-- A running instance of the Reveal server, or an equivalent service, to fetch chart info.
+- Reveal Trial License
