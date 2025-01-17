@@ -1,6 +1,6 @@
 # Builder Component
 
-This Angular standalone component integrates with [Reveal](https://www.infragistics.com/products/reveal) to load and display visualizations, as well as dynamically build dashboards. It leverages the `RevealServerService` to fetch visualization metadata and uses the [Reveal JavaScript SDK](https://www.infragistics.com/products/reveal) to embed dashboards in the application.
+This Angular standalone component integrates with [Reveal](https://revealbi.io) to load and display visualizations, as well as dynamically build dashboards in a sinmple point-and-click visualization catalog experience.
 
 ## Overview
 
