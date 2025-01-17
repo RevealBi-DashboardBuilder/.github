@@ -1,76 +1,153 @@
 # Builder Component
 
-This Angular standalone component integrates with [Reveal](https://revealbi.io) to load and display visualizations, as well as dynamically build dashboards in a sinmple point-and-click visualization catalog experience.
+This **Angular standalone component** seamlessly integrates with [Reveal](https://revealbi.io) to empower users to dynamically build dashboards or view single visualizations through an intuitive, point-and-click visualization catalog experience.
 
-## Overview
+---
 
-1. **Single Visualization Mode:**  
-   When you click a visualization in the list, it’s displayed on its own (maximized) inside a `RevealView` instance.
+## 🚀 Overview
 
-2. **Generated Dashboard Mode:**  
-   You can select multiple visualizations to dynamically assemble a combined dashboard and then save or reset that dashboard.
+### Key Modes:
 
-## Key Features
+1. **Single Visualization Mode**
+   - Click a visualization from the catalog to display it maximized in its own `RevealView` instance.
 
-- **Load Visualization List**  
-  Fetches a list of `VisualizationChartInfo` objects using `RevealServerService`.
+2. **Generated Dashboard Mode**
+   - Select multiple visualizations to dynamically assemble a custom dashboard. Save or reset your dashboard effortlessly.
 
-- **Single Visualization Display**  
-  On item click, loads the corresponding dashboard file, initializes a `RevealView`, and zooms into the chosen visualization.
+Driving adoption for BI and dashboards can be challenging. By providing an easy-to-use visualization catalog, organizations can accelerate data-driven decision-making. Users can create dashboards, save them for reuse, and integrate them into a shared or corporate catalog.
 
-- **Dashboard Generation**  
-  Allows combining multiple visualizations into a single `RdashDocument`, converting them to an `RVDashboard`, and displaying the result in a separate `RevealView`.
+---
 
-- **Save & Reset Functionalities**  
-  Uses the Reveal `onSave` event to manage naming collisions and existing dashboard overrides. Exposes a “Clear / Reset” menu item to clear the entire composite dashboard.
+## 📽️ Video Walkthrough
 
-## Code Breakdown
+Watch the step-by-step guide for this project on YouTube:
 
-Below is a high-level walkthrough of what `BuilderComponent` does, referencing key sections of the code:
+[![Watch the video](https://img.youtube.com/vi/G887Vy4UKfw/0.jpg)](https://youtu.be/G887Vy4UKfw)
 
-1. **`loadVisualizationChartInfo()`**  
-   - Retrieves visualization metadata from the server and automatically selects the first item to display in single-visualization mode.
+---
 
-2. **`listItemClick(item: VisualizationChartInfo)`**  
-   - Handles single visualization loading.  
-   - Creates a new `RevealView`, loads the associated dashboard file, and shows the chosen visualization in maximized mode.
+## ✨ Features
 
-3. **`iconClick(item: VisualizationChartInfo, event: MouseEvent)`**  
-   - Stops event propagation to keep the UI consistent.  
-   - Checks if the selected visualization is already in the dynamic dashboard list (`vizCollection`). If not, adds it, then calls `generateDashboard()`.
+### 🔍 **Visualization Catalog**
+- **List of Visualizations:** Dynamically load a catalog of `VisualizationChartInfo` objects via the `RevealServerService`.
+- **Icon-Based Interface:** Clean UI for selecting and adding visualizations.
 
-4. **`generateDashboard()`**  
-   - Creates a new `RdashDocument` for the combined dashboard.  
-   - Iterates through the selected visualizations (`vizCollection`), imports them from cached or newly loaded `RdashDocument`s, and generates a new `RVDashboard`.
+### 📊 **Single Visualization Display**
+- Maximize any visualization by clicking on it.
+- Use a dedicated `RevealView` to provide an uninterrupted view of the chosen visualization.
 
-5. **`setupRevealView()`**  
-   - Initializes a `RevealView` for the dashboard container.  
-   - Handles saving logic (`onSave` event), which prompts for a valid name and checks for existing dashboards on the server.  
-   - Configures `onMenuOpening` to hide “Export” and add a custom “Clear / Reset” menu item.
+### 🖼️ **Dashboard Creation**
+- Combine selected visualizations into a dynamic dashboard.
+- Generate an `RdashDocument` with multiple `VisualizationChartInfo` objects.
 
-6. **`resetDashboard()`**  
-   - Clears all selected visualizations, resets the combined dashboard, and sets up the environment for a fresh start.
+### 💾 **Save & Reset Dashboards**
+- Handle naming collisions and dashboard overwrites using the `onSave` event.
+- Include a custom “Clear/Reset” option to quickly start fresh.
 
-## How It Works
+---
 
-1. **Retrieving Data**  
-   `RevealServerService` is used to fetch a list of available charts (each with an ID, name, file reference, etc.).
+## 🛠️ How It Works
 
-2. **Single Visualization Display**  
-   A dedicated reveal view is used whenever you select one visualization, so you can quickly preview it without affecting the combined dashboard.
+### 1. **Retrieving Visualization Data**
+The Reveal server fetches metadata for available visualizations, including titles, file references, and IDs. This populates the visualization list.
 
-3. **Dashboard Building**  
-   You can click the icon to add a visualization to your custom dashboard. The code imports each visualization from its original source `RdashDocument` into a brand-new `RdashDocument`.
+### 2. **Single Visualization Mode**
+Clicking a visualization loads the associated `RevealView` and maximizes the view for detailed analysis.
 
-4. **Saving & Validation**  
-   The component checks for duplicate names on save. If a duplicate is found, it prompts the user to confirm overwriting the existing dashboard. This logic lives in `onSave`.
+### 3. **Dashboard Generation**
+- Visualizations are added to a collection when selected.
+- The `generateDashboard()` function creates a new `RdashDocument` from these visualizations, converting it to an `RVDashboard` for display.
 
-5. **Resetting**  
-   The “Clear / Reset” menu item helps you wipe the combined dashboard clean, leaving you free to start building a new one.
+### 4. **Saving Dashboards**
+The `onSave` event ensures dashboard names are unique, prompting the user if overwrites are necessary.
 
-## Getting Started
-Each repository has a readme for getting started on both the client and the server.
+### 5. **Resetting Dashboards**
+The “Clear/Reset” option removes all visualizations, resetting the dashboard for new configurations.
 
-## Requirements
+---
+
+## 🔑 Key Methods
+
+### 1. **`loadVisualizationChartInfo()`**
+- Retrieves visualization metadata and auto-selects the first visualization for single visualization mode.
+
+### 2. **`listItemClick(item: VisualizationChartInfo)`**
+- Loads a single visualization in a `RevealView`, showing it maximized.
+
+### 3. **`iconClick(item: VisualizationChartInfo, event: MouseEvent)`**
+- Adds a visualization to the dashboard if not already selected.
+- Calls `generateDashboard()` to dynamically create the dashboard.
+
+### 4. **`generateDashboard()`**
+- Combines selected visualizations into an `RdashDocument`.
+- Updates the `RevealView` with the newly generated dashboard.
+
+### 5. **`setupRevealView()`**
+- Configures the `RevealView` for dashboard management.
+- Handles save events and custom menu options, including “Clear/Reset”.
+
+### 6. **`resetDashboard()`**
+- Clears all selected visualizations and resets the `RevealView`.
+
+---
+
+## 📚 Additional Details
+
+### Visualization Catalog
+
+Using the Reveal SDK DOM, visualizations from server-side dashboards are dynamically listed with titles, icons, and IDs. Users can:
+- Click to view visualizations individually.
+- Add them to a custom dashboard using the "+" icon.
+
+### Dashboard Behavior
+
+The dashboard creation logic is entirely client-side. Adding a new visualization recreates the dashboard view to accommodate the updated layout.
+
+- **Auto Layout:** Ensures a clean and responsive design.
+- **Client-Side Rendering:** Allows users to resize and rearrange visualizations.
+
+---
+
+## 🧰 Requirements
 
 - Reveal Trial License
+- [Reveal SDK Documentation](https://www.revealbi.io/)
+- Angular environment for the client application.
+
+---
+
+## 🛠️ Getting Started
+
+### Client Setup
+
+1. Choose a client-side technology from one of the Client repo's
+   - React
+   - Angular
+   - HTML
+2. Clone the repository.
+3. Open the Angular project folder.
+4. Update the `endpoint` URL to point to your Reveal server.
+5. Run the application.
+
+### Server Setup
+
+1. Choose a backend from one of the Server repo's:
+   - .NET Core
+   - Java
+   - Node-js
+   - Node-ts
+2. Configure the Reveal Server to host your visualizations.
+3. Start the server and ensure the endpoint matches the client configuration.
+
+---
+
+## 📚 Resources
+
+- **Reveal Documentation:** [https://www.revealbi.io/](https://www.revealbi.io/)
+- **GitHub Repository:** [https://github.com/RevealBi/sdk-samples-javascript](https://github.com/RevealBi/sdk-samples-javascript)
+- **Additional Samples:** [https://github.com/RevealBi/sdk-samples](https://github.com/RevealBi/sdk-samples)
+
+---
+
+Bring your data to life with the **Builder Component**. Simplify dashboard creation, enhance user adoption, and accelerate data-driven insights with Reveal!
+
